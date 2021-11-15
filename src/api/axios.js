@@ -1,6 +1,4 @@
 import axios from "axios";
-import {useNavigate} from 'react-router-dom'
-
 
 const axiosClient = axios.create({
     baseURL : process.env.REACT_APP_BASE_URL,
@@ -13,7 +11,6 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(
     (request) => {
         var token = localStorage.getItem("token")
-        console.log(token)
         if (token != null)
             request.headers.authorization =`Bearer ${token}`
         return request
@@ -37,7 +34,7 @@ axiosClient.interceptors.response.use(
                 reject(error)
             })
         }
-        if (error.response.status === 401) {
+        if (error.response.status == 400 || error.response.status == 401 || error.response.status == 403) {
             localStorage.removeItem("token")
             localStorage.removeItem("status")
             localStorage.removeItem("name")

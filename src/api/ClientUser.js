@@ -16,10 +16,15 @@ const lecturerRegister = (data) => {
     return axiosClient.post('users/teacher/register', data)
 }
 
+const getNewToken = (data) => {
+    return axiosClient.post('/users/token', data)
+}
+
 
 export {
     normalLogin,
     googleLogin,
     studentRegister,
-    lecturerRegister
+    lecturerRegister,
+    getNewToken
 }

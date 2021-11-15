@@ -81,7 +81,7 @@ export default function ChooseRole() {
                                     name="inlineRadioOptions"
                                     id="maleGender"
                                     value="option2"
-                                    checked={information.type == 1 ? true : false}
+                                    checked={information.type === 1 ? true : false}
                                     onClick={() => {setInformation({...information, type:1})}}
                                     />
                                     <label className="form-check-label" for="maleGender">Student</label>
@@ -94,7 +94,7 @@ export default function ChooseRole() {
                                     name="inlineRadioOptions"
                                     id="femaleGender"
                                     value="option1"
-                                    checked={information.type == 2 ? true : false}
+                                    checked={information.type === 2 ? true : false}
                                     onClick={() => {setInformation({...information, type:2})}}
                                     />
                                     <label className="form-check-label" for="femaleGender">Lecturer</label>

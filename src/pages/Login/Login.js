@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import { Link , useNavigate } from 'react-router-dom'
 import FacebookLogin from 'react-facebook-login'
 import GoogleLogin from 'react-google-login';
@@ -46,7 +46,7 @@ export default function Login(props) {
                     }
                     else {
                         // login success
-                        onLoginSuccess("user", "john", res.data.token)
+                        onLoginSuccess("lecturer", "john", res.data.token)
                     }
                 }
             )
@@ -69,17 +69,19 @@ export default function Login(props) {
             if (res.data.status === 'error') {
                 alert(res.data.error)
             }else {
-                onLoginSuccess("user", "john", res.data.token)
+                console.log(res.data)
+                onLoginSuccess("lecturer", "john", res.data.token, res.data.refreshToken)
             }
         })
 
     }
 
-    const onLoginSuccess = (status, name, token) => {
+    const onLoginSuccess = (status, name, token, refreshToken) => {
         // store token to localStorage
         localStorage.setItem('token', token)
         localStorage.setItem('status', status)
         localStorage.setItem('name', name)
+        localStorage.setItem('refreshToken', refreshToken)
         props.setStatus({
             status: status,
             name: name
@@ -106,24 +108,15 @@ export default function Login(props) {
                             <input type="password" id="password" class="form-control form-control-lg" value={loginForm.password} onChange={(event) => {setLoginForm({...loginForm, password: event.target.value})}} />
                         </div>
 
-                        <div class="d-flex justify-content-around align-items-center mb-4">
-                            <div class="form-check">
-                            <input
-                                class="form-check-input"
-                                type="checkbox"
-                                value=""
-                                id="form1Example3"
-                            />
-                            <label class="form-check-label" for="form1Example3"> Remember me </label>
-                            </div>
-                            <a href="#!">Forgot password?</a>
-                        </div>
-
                         <p>If you don't have an account
                         <Link to="/register">
                             , register now !
                         </Link>
                         </p>
+
+                        <div class="d-flex justify-content-around align-items-center mb-4">
+                            <a>Forgot password?</a>
+                        </div>
 
                         <button type='submit' class="btn btn-primary btn-lg btn-block" disabled={loginForm.email === "" || loginForm.password === "" ? true : false}>Log in</button>
                         <div class="divider d-flex align-items-center my-4">
